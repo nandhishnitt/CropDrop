@@ -1,0 +1,22 @@
+For the CropDrop project, the goal was to build an autonomous line-following robot that could navigate a specific path, stop at designated markers, pick up objects with a mechanical arm, and drop them off accurately. 
+Before touching any wires or physical hardware, we built the entire test track and robot model in CoppeliaSim. 
+Doing these simulations first allowed us to test our logic without breaking anything.
+
+During this simulation phase, we experimented with two different approaches for the control system: standard PID control and a Reinforcement Learning (RL) model. 
+We wanted to see which method would give us the smoothest track navigation. 
+
+Ultimately, we scrapped the RL approach and stuck with PID. While RL sounded great on paper, training the model was incredibly tedious and time-consuming. 
+Even after we spent a ton of time fully developing the RL algorithm, the robot’s behavior was still glitchy and imperfect. 
+PID, on the other hand, was much more straightforward to tune and gave us the reliable, predictable control we needed for the pick-and-place tasks.
+
+However, moving from a flawless simulation to physical hardware brought a completely new set of headaches. 
+Once we assembled the robot, setting the right PWM speeds for the motors and tuning the PID controller in the real world was surprisingly difficult. 
+Small variations in track lighting kept messing with our sensors, causing the robot to jitter aggressively or lose the line entirely. 
+Constantly plugging the robot into a laptop to flash new tuning values was taking forever. To fix this, we wired up a Bluetooth module. 
+This was a massive help—it let us stream the live sensor data wirelessly and tweak our proportional, integral, and derivative (Kp, Ki, Kd) values on the fly while the robot was actively running until it moved perfectly.
+
+We also ran into a few frustrating mechanical and power issues along the way. 
+Early on, we had a harsh learning curve with our power supply and actually ruined a LiPo battery because we didn't charge and discharge it properly. 
+After that, we made sure to carefully monitor our voltage drops.
+On the mechanical side, the front castor wheel we used for balance kept getting physically stuck during sharp turns, which would drag the robot and ruin our PID tuning. 
+The fix for that ended up being entirely low-tech—we just cleaned the wheel housing and applied some oil to smooth out the swivel.
